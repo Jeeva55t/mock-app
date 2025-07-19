@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Dashboard</h1>
+
+    {% if no_history %}
+        <p>Welcome, {{ current_user.username }}! You haven't taken any quizzes yet. Create your first one to see your stats here.</p>
+        <a href="{{ url_for('index') }}" class="results-button" style="max-width: 250px;">Create a Quiz</a>
+    {% else %}
+        <!-- Stat Cards -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-card-title">Total Quizzes Taken</div>
+                <div class="stat-card-value">{{ stats.total_quizzes }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Overall Average Score</div>
+                <div class="stat-card-value">{{ stats.average_score }}%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Best Topic</div>
+                <div class="stat-card-value">{{ stats.best_topic }}</div>
+            </div>
+        </div>
+
+        <hr class="results-divider">
+
+        <div class="dashboard-grid-cols2">
+            <!-- Performance by Topic -->
+            <div class="dashboard-section">
+                <h2>Performance by Topic</h2>
+                <ul class="collection">
+                    {% for topic, avg in topic_averages.items()|sort(attribute=1, reverse=true) %}
+                    <li class="collection-item">
+                        <span>{{ topic }}</span>
+                        <span class="score-badge">{{ "%.1f"|format(avg) }}%</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dashboard-section">
+                <h2>Recent Activity</h2>
+                <ul class="collection">
+                    {% for quiz in recent_quizzes %}
+                    <a style="text-decoration: none;" href="{{ url_for('history_detail', quiz_id=quiz.id) }}" class="collection-item avatar">
+                        <i class="circle {% if (quiz.score_correct / quiz.score_total) >= 0.8 %}green{% elif (quiz.score_correct / quiz.score_total) >= 0.5 %}orange{% else %}red{% endif %}">
+                            {{ quiz.score_correct }}/{{ quiz.score_total }}
+                        </i>
+                        <div class="item-content">
+                            <span class="title"><b>{{ quiz.topic }}</b></span>
+                            <p class="grey-text">{{ quiz.timestamp.strftime('%B %d, %Y') }}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

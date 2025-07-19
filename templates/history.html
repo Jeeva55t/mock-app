@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz History{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Quiz History</h1>
+    {% if quizzes %}
+        <p>Here are the results from your previous quizzes. Click on any entry to see a detailed breakdown.</p>
+        <ul class="collection">
+            {% for quiz in quizzes %}
+                <li class="collection-item avatar">
+                    <a href="{{ url_for('history_detail', quiz_id=quiz.id) }}" class="history-link-area">
+                        <i class="circle {% if (quiz.score_correct / quiz.score_total) >= 0.8 %}green{% elif (quiz.score_correct / quiz.score_total) >= 0.5 %}orange{% else %}red{% endif %}">
+                            {{ quiz.score_correct }}/{{ quiz.score_total }}
+                        </i>
+                        <div class="item-content">
+                            <span class="title"><b>{{ quiz.topic }}</b></span>
+                            <p class="grey-text">
+                                Taken on {{ quiz.timestamp.strftime('%B %d, %Y at %I:%M %p') }}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="item-actions">
+                        <form method="POST" action="{{ url_for('delete_history', quiz_id=quiz.id) }}" onsubmit="return confirm('Are you sure you want to permanently delete this entry?');">
+                            <button type="submit" class="delete-btn" title="Delete History">&times;</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't taken any quizzes yet. Go ahead and create one!</p>
+    {% endif %}
+</div>
+{% endblock %}
