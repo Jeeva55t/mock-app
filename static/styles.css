@@ -1,0 +1,221 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 1.75rem;
+    color: #1c1e21;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.container > p {
+    text-align: center;
+    color: #606770;
+    margin-bottom: 2rem;
+}
+
+form label {
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4b4f56;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #dddfe2;
+    background-color: #f5f6f7;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form input:focus, form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+form button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:hover {
+    background-color: #0069d9;
+}
+
+.quiz-question {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #dddfe2;
+}
+
+.quiz-question p b {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.options div {
+    display: flex;
+    align-items: center;
+    margin-top: 0.75rem;
+}
+
+.options label {
+    font-weight: normal;
+    margin-left: 0.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.error {
+    color: #dc3545;
+    font-weight: bold;
+    background-color: rgba(220, 53, 69, 0.1);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1.5rem;
+}
+
+.results-container {
+    text-align: center;
+}
+.score {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 0.5em 0;
+    color: #007bff;
+}
+.results-divider {
+    border: none;
+    border-top: 1px solid #dddfe2;
+    margin: 2.5rem 0;
+}
+.container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #4b4f56;
+}
+.result-item {
+    background-color: #f7f7f7;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.result-question {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status-correct {
+    color: #28a745;
+    font-size: 0.9rem;
+}
+.status-incorrect {
+    color: #dc3545;
+    font-size: 0.9rem;
+}
+.result-item .options .option {
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    border: 2px solid transparent;
+}
+.result-item .options .option.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+    font-weight: bold;
+}
+.result-item .options .option.incorrect {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+    text-decoration: line-through;
+}
+.results-button {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 3rem auto 0 auto;
+    text-align: center;
+    padding: 1rem;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.results-button:hover {
+    background-color: #218838;
+}
+
+/* --- Explanation Feature Styles --- */
+.explanation-section {
+    margin-top: 1rem;
+    text-align: right;
+}
+.explain-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.explain-btn:hover {
+    background-color: #5a6268;
+}
+.explanation-content {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    color: #495057;
+    text-align: left;
+    white-space: pre-wrap; 
+    font-size: 0.95rem;
+    border: 1px solid #dee2e6;
+}

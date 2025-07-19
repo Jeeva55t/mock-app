@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="results-container">
+            <h1>🎉 Quiz Complete! 🎉</h1>
+            <p>Your Final Score:</p>
+            <div class="score">{{ score.correct }} / {{ score.total }}</div>
+        </div>
+
+        <hr class="results-divider">
+
+        <h2>Detailed Breakdown</h2>
+        
+        {% for result in results %}
+        <div class="result-item">
+            <p class="result-question">
+                <b>{{ loop.index }}. {{ result.question_text }}</b>
+                {% if result.is_correct %}
+                    <span class="status-correct">✔ Correct</span>
+                {% else %}
+                    <span class="status-incorrect">✖ Incorrect</span>
+                {% endif %}
+            </p>
+            <div class="options">
+                {% for option in result.options %}
+                    {% set option_class = 'option' %}
+                    {% if option == result.correct_answer %}
+                        {% set option_class = option_class + ' correct' %}
+                    {% elif option == result.user_answer %}
+                        {% set option_class = option_class + ' incorrect' %}
+                    {% endif %}
+                    <div class="{{ option_class }}">
+                        {{ option }}
+                    </div>
+                {% endfor %}
+            </div>
+             {% if not result.is_correct %}
+                <div class="explanation-section">
+                    <button class="explain-btn" 
+                            data-question="{{ result.question_text }}" 
+                            data-user-answer="{{ result.user_answer }}" 
+                            data-correct-answer="{{ result.correct_answer }}"
+                            onclick="getExplanation(this)">
+                        🧠 Explain My Mistake
+                    </button>
+                    <div class="explanation-content" style="display: none;"></div>
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <a href="/" class="results-button">Create Another Quiz</a>
+    </div>
+
+    <script>
+        async function getExplanation(button) {
+            
+            const explanationDiv = button.nextElementSibling;
+            
+            explanationDiv.style.display = 'block';
+            explanationDiv.innerHTML = 'Thinking...';
+            button.style.display = 'none';
+
+            const data = {
+                question: button.dataset.question,
+                user_answer: button.dataset.userAnswer,
+                correct_answer: button.dataset.correctAnswer,
+            };
+
+            try {
+                const response = await fetch('/explain', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+
+                const result = await response.json();
+                explanationDiv.innerText = result.explanation || 'Sorry, could not get an explanation.';
+
+            } catch (error) {
+                console.error('Error fetching explanation:', error);
+                explanationDiv.innerText = 'Error: Could not fetch explanation.';
+            }
+        }
+    </script>
+</body>
+</html>
