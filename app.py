@@ -18,7 +18,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
-genai.configure(api_key="your key here") 
+genai.configure(api_key="")
 
 
 class User(UserMixin, db.Model):
@@ -230,48 +230,7 @@ def delete_history(quiz_id):
         
     return redirect(url_for('history'))
 
-from sqlalchemy import func .
 
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    user_quizzes = QuizHistory.query.filter_by(user_id=current_user.id).all()
-    
-    if not user_quizzes:
-        return render_template('dashboard.html', no_history=True)
-        
-    total_quizzes = len(user_quizzes)
-    
-    total_score_all = sum(q.score_correct for q in user_quizzes)
-    total_possible_all = sum(q.score_total for q in user_quizzes)
-    average_score = (total_score_all / total_possible_all * 100) if total_possible_all > 0 else 0
-    
-    topic_performance = {}
-    for quiz in user_quizzes:
-        if quiz.topic not in topic_performance:
-            topic_performance[quiz.topic] = {'correct': 0, 'total': 0, 'count': 0}
-        topic_performance[quiz.topic]['correct'] += quiz.score_correct
-        topic_performance[quiz.topic]['total'] += quiz.score_total
-        topic_performance[quiz.topic]['count'] += 1
-        
-    topic_averages = {}
-    for topic, data in topic_performance.items():
-        topic_averages[topic] = (data['correct'] / data['total'] * 100) if data['total'] > 0 else 0
-        
-    best_topic = max(topic_averages, key=topic_averages.get) if topic_averages else "N/A"
-    
-    recent_quizzes = QuizHistory.query.filter_by(user_id=current_user.id).order_by(QuizHistory.timestamp.desc()).limit(5).all()
-    
-    stats = {
-        'total_quizzes': total_quizzes,
-        'average_score': round(average_score, 2),
-        'best_topic': best_topic
-    }
-    
-    return render_template('dashboard.html', 
-                           stats=stats, 
-                           topic_averages=topic_averages,
-                           recent_quizzes=recent_quizzes)
 
 if __name__ == '__main__':
     with app.app_context():
