@@ -45,9 +45,9 @@
             <!-- Recent Activity -->
             <div class="dashboard-section">
                 <h2>Recent Activity</h2>
-                <ul class="collection">
+                <ul class="collection" style="padding: 10px;">
                     {% for quiz in recent_quizzes %}
-                    <a style="text-decoration: none;" href="{{ url_for('history_detail', quiz_id=quiz.id) }}" class="collection-item avatar">
+                    <a style ="text-decoration: none;" href="{{ url_for('history_detail', quiz_id=quiz.id) }}" class="collection-item avatar">
                         <i class="circle {% if (quiz.score_correct / quiz.score_total) >= 0.8 %}green{% elif (quiz.score_correct / quiz.score_total) >= 0.5 %}orange{% else %}red{% endif %}">
                             {{ quiz.score_correct }}/{{ quiz.score_total }}
                         </i>
