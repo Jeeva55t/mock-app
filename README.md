@@ -1,58 +1,81 @@
-# 🧠 AI Quiz Generator
+AI-Powered Adaptive Quiz Platform
+An intelligent, full-stack web application that dynamically generates personalized mock tests using Google's Gemini API. This platform provides a secure, interactive, and adaptive learning environment for users to test and improve their knowledge on any subject.
 
-A simple Flask web app that uses the Gemini AI API to generate quizzes based on any topic. Users can create, take, and review quizzes with AI-generated questions and explanations.
+Live Demo Link (https://mock-quizz-app.onrender.com)
 
----
+Key Features
+Dynamic Quiz Generation: Leverages the Google Gemini API to create unique multiple-choice quizzes on any user-specified topic and difficulty level.
 
-## ✨ Features
+Secure User Authentication: Full registration and login system with secure password hashing (werkzeug) and session management (Flask-Login).
 
-- User login and registration
-- Generate quizzes using Google Gemini API
-- Choose topic, number of questions, and difficulty
-- Automatic scoring and explanation for answers
-- View quiz history
+Personalized User Dashboard: Provides users with at-a-glance analytics of their performance, including total quizzes taken, overall average score, and best-performing topic.
 
----
+Comprehensive Test History: Persistently stores all past quiz results, allowing users to review their answers, track progress over time, and delete old entries.
 
-## 🛠 Tech Stack
+AI-Powered Feedback: A unique "Explain My Mistake" feature makes a secondary API call to provide contextual, AI-generated explanations for incorrect answers, turning the app into an active learning tool.
 
-- Python, Flask
-- Gemini AI (Google Generative AI)
-- SQLite (database)
-- Tailwind CSS (frontend styling)
+Clean, Responsive Frontend: A user-friendly interface built with HTML, CSS, and JavaScript that works seamlessly on both desktop and mobile devices.
 
----
+Tech Stack
+Backend: Python, Flask
 
-## 🚀 Getting Started
+Database: SQLite, Flask-SQLAlchemy
 
-### 1. Clone the project
+Authentication: Flask-Login, Werkzeug
 
-```bash
-git clone https://github.com/Jeeva55t/mock-quizz-app.git
-cd ai-quiz-generator
-2. Install dependencies
-bash
-Copy
-Edit
+Frontend: HTML5, CSS3, JavaScript, Jinja2
+
+AI Integration: Google Gemini API
+
+Deployment:https://mock-quizz-app.onrender.com
+
+Local Setup and Installation
+Follow these steps to run the project on your local machine.
+
+1. Clone the Repository
+Bash
+
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+2. Create a Virtual Environment
+It's highly recommended to use a virtual environment to manage dependencies.
+
+Bash
+
+# For Windows
+python -m venv venv
+venv\Scripts\activate
+
+# For macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+3. Install Dependencies
+Install all the required libraries from the requirements.txt file.
+
+Bash
+
 pip install -r requirements.txt
-3. Set your Gemini API key
-In app.py:
+(Note: To create a requirements.txt file, run pip freeze > requirements.txt in your activated virtual environment.)
 
-python
-Copy
-Edit
-import google.generativeai as genai
-genai.configure(api_key="YOUR_API_KEY")
-Or set it as an environment variable:
+4. Configure Environment Variables
+The application requires a Gemini API key. It's best practice to set this as an environment variable.
 
-bash
-Copy
-Edit
-export GOOGLE_API_KEY="YOUR_API_KEY"  # Linux/macOS
-set GOOGLE_API_KEY=YOUR_API_KEY       # Windows
-4. Run the app
-bash
-Copy
-Edit
-flask run
-Open http://localhost:5000 in your browser.
+For Windows (Command Prompt):
+
+Bash
+
+set GEMINI_API_KEY="YOUR_API_KEY_HERE"
+For macOS/Linux:
+
+Bash
+
+export GEMINI_API_KEY="YOUR_API_KEY_HERE"
+Alternatively, you can hardcode the key in app.py, but this is not recommended.
+
+5. Run the Application
+The app.py script will automatically create the users.db database file on the first run.
+
+Bash
+
+python app.py
+The application will be available at http://127.0.0.1:5000
